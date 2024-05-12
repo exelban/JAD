@@ -1,0 +1,22 @@
+{
+  "name": "jad",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "css.gg": "2.1.1",
+    "sass": "1.77.1",
+    "vue": "3.4.27",
+    "vuedraggable": "4.1.0",
+    "vuex": "4.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "5.0.4",
+    "vite": "5.2.11"
+  }
+}

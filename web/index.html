@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JAD</title>
+
+    <meta name="description" content="JAD (just another dashboard)"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light">
+
+    <script>
+      const data = "{{ . }}"
+      if (data[1] !== "{") {
+        window.config = JSON.parse(data)
+        window.config.apiHost = ""
+      } else {
+        fetch("http://localhost:8080").then(res => res.text()).then(data => {
+          window.config = JSON.parse(data)
+        }).catch(err => {
+          window.config = {
+            apiHost: "http://localhost:8080",
+          }
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

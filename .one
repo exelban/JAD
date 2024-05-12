@@ -1,0 +1,4 @@
+name: JAD
+image: ghcr.io/exelban/jad:latest
+build:
+  platform: linux/amd64,linux/arm64
