@@ -54,3 +54,36 @@ export const isValidUrl = url => {
     return false
   }
 }
+
+export const detectIcon = (name, link) => {
+  if (name.toLowerCase().includes("proxmox") || link.includes(":8006")) {
+    return "/icon/proxmox.png"
+  } else if (name.toLowerCase().includes("unifi")) {
+    return "/icon/ui.png"
+  } else if (name.toLowerCase().includes("gitea")) {
+    return "/icon/gitea.png"
+  } else if (name.toLowerCase().includes("notes")) {
+    return "/icon/flatnotes.png"
+  } else if (name.toLowerCase().includes("portainer")) {
+    return "/icon/portainer.png"
+  } else if (name.toLowerCase().includes("pihole")) {
+    return "/icon/pihole.png"
+  } else if (name.toLowerCase().includes("homebridge")) {
+    return "/icon/homebridge.png"
+  } else if (name.toLowerCase().includes("plex")) {
+    return "/icon/plex.png"
+  } else if (name.toLowerCase().includes("synology") || link.includes(":5000")) {
+    return "/icon/synology.png"
+  } else if (name.toLowerCase().includes("kuma")) {
+    return "/icon/kuma.png"
+  } else if (name.toLowerCase().includes("jellyfin") || link.includes(":8096")) {
+    return "/icon/jellyfin.png"
+  } else if (name.toLowerCase().includes("transmission") || link.includes(":9091")) {
+    return "/icon/transmission.png"
+  } else if (name.toLowerCase().includes("sonarr") || link.includes(":8989")) {
+    return "/icon/sonarr.png"
+  } else if (name.toLowerCase().includes("radarr") || link.includes(":7878")) {
+    return "/icon/radarr.png"
+  }
+  return undefined
+}

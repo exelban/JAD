@@ -27,34 +27,45 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async save({ commit, state }) {
-      return fetch(`${window.config.apiHost}/api`, {
+    async save({}, list) {
+      let url = window.config.apiHost ? `${window.config.apiHost}/api` : `/api`
+      return fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(state.links)
+        body: JSON.stringify(list)
       })
     },
-    async create({ commit, state, dispatch }, link) {
-      commit("setLinks", state.links.concat(link))
+    async upsert({ commit, state, dispatch }, link) {
+      const shadow = JSON.parse(JSON.stringify(state.links))
+      const i = shadow.findIndex(l => l.id === link.id)
+      if (i === -1) {
+        shadow.push(link)
+      } else {
+        shadow[i] = link
+      }
       return new Promise((resolve, reject) => {
-        dispatch("save").then(() => {
+        dispatch("save", shadow).then(() => {
+          commit("setLinks", shadow)
           resolve()
         }).catch(() => {
-          commit("setLinks", state.links.filter(l => l.id !== link.id))
           reject()
         })
       })
     },
     async delete({ commit, state, dispatch }, id) {
-      const copy = state.links.find(l => l.id === id)
-      commit("setLinks", state.links.filter(l => l.id !== id))
+      const shadow = JSON.parse(JSON.stringify(state.links))
+      const i = shadow.findIndex(l => l.id === id)
+      if (i === -1) {
+        return
+      }
+      shadow.splice(i, 1)
       return new Promise((resolve, reject) => {
-        dispatch("save").then(() => {
+        dispatch("save", shadow).then(() => {
+          commit("setLinks", shadow)
           resolve()
         }).catch(() => {
-          commit("setLinks", state.links.concat(copy))
           reject()
         })
       })

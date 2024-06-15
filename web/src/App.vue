@@ -14,7 +14,7 @@
     </div>
   </main>
 
-  <c-popup v-if="newPopup" title="New link" @closed="() => $store.commit('setNewPopup', false)">
+  <c-popup v-if="popup.new" :title="id ? 'Edit link' : 'New link'" @closed="() => $store.commit('setNewPopup', false)">
     <c-new/>
   </c-popup>
 </template>
@@ -31,13 +31,8 @@ import draggable from "vuedraggable"
 export default {
   name: "App",
   components: { CHeader, CLink, CPopup, CNew, draggable },
-  data: () => ({
-    popup: {
-      new: false
-    },
-  }),
   computed: {
-    ...mapState(["editMode"]),
+    ...mapState(["editMode", "popup", "id"]),
     links: {
       get() {
         return this.$store.state.links
@@ -47,11 +42,8 @@ export default {
           newValue[i].order = i
         }
         this.$store.commit("setLinks", newValue)
-        this.$store.dispatch("save")
+        this.$store.dispatch("save", newValue)
       }
-    },
-    newPopup() {
-      return this.$store.state.popup.new
     },
   },
   methods: {
@@ -76,6 +68,10 @@ export default {
 main {
   flex: 1;
   display: flex;
+  padding: 60px 40px;
+  @media (max-width: 520px) {
+    padding: 60px 0;
+  }
 
   > div {
     flex: 1;
@@ -85,6 +81,9 @@ main {
     align-content: center;
     flex-wrap: wrap;
     gap: 20px;
+    @media (max-width: 420px) {
+      gap: 10px;
+    }
   }
 
   .empty {

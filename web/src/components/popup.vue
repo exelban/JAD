@@ -1,9 +1,12 @@
 <template>
   <Transition name="fade">
-    <div class="popup">
-      <div class="content">
-        <h2 class="w title" v-if="title">{{ title }}</h2>
-        <slot/>
+    <div>
+      <div class="background" @click="$emit('closed')"></div>
+      <div class="popup row center middle">
+        <div class="content column center middle">
+          <h2 class="w title" v-if="title">{{ title }}</h2>
+          <slot/>
+        </div>
       </div>
     </div>
   </Transition>
@@ -16,19 +19,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-  methods: {
-    clickOutsideEvent(event) {
-      if (this.$el === event.target) {
-        this.$emit("closed")
-      }
-    },
-  },
-  mounted() {
-    document.body.addEventListener("click", this.clickOutsideEvent)
-  },
-  beforeDestroy() {
-    document.body.removeEventListener("click", this.clickOutsideEvent)
   },
 }
 </script>
@@ -44,31 +34,35 @@ export default {
   opacity: 0;
 }
 
+.background {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
 .popup {
   width: 100%;
   height: 100%;
-  background: var(--popup-background-color);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 200;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  pointer-events: none;
 
   .content {
     max-width: 96%;
     margin-top: -140px;
     background: var(--block-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background: var(--popup-content-color);
     backdrop-filter: blur(14.5px);
     -webkit-backdrop-filter: blur(14.5px);
     padding: 16px;
     border-radius: 3px;
+    pointer-events: auto;
 
     h2.title {
       width: 100%;
