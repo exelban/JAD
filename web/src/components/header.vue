@@ -6,8 +6,8 @@
       <div class="info row middle between">
         <div class="row middle center" style="gap: 2px;">
           <button @click="theme = theme === 'dark' ? 'light' : 'dark'" title="Toggle theme"><i class="gg-edit-contrast"/></button>
-          <button title="Download links" @click="download"><i class="gg-software-download"/></button>
-          <button title="Upload links"><i class="gg-software-upload"/></button>
+          <button v-if="!demoMode" title="Download links" @click="download"><i class="gg-software-download"/></button>
+          <button v-if="!demoMode" title="Upload links"><i class="gg-software-upload"/></button>
         </div>
         <a href="https://github.com/exelban/jad" target="_blank" title="Version">{{ version }}</a>
       </div>
@@ -38,6 +38,9 @@ export default {
         return window.config.version
       }
       return "unknown"
+    },
+    demoMode() {
+      return this.version === "demo"
     }
   },
   beforeMount() {
@@ -162,7 +165,7 @@ header {
       a {
         font-size: 12px;
         margin: 0;
-        text-wrap: nowrap;
+        text-wrap: none;
         color: var(--title-color);
         &:hover {
           text-decoration: underline;

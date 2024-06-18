@@ -58,7 +58,7 @@ export const isValidUrl = url => {
 export const detectIcon = (name, link) => {
   if (name.toLowerCase().includes("proxmox") || link.includes(":8006")) {
     return "/icon/proxmox.png"
-  } else if (name.toLowerCase().includes("unifi")) {
+  } else if (name.toLowerCase().includes("unifi") || name.toLowerCase().includes("ubiquiti")) {
     return "/icon/ui.png"
   } else if (name.toLowerCase().includes("gitea")) {
     return "/icon/gitea.png"
@@ -84,6 +84,12 @@ export const detectIcon = (name, link) => {
     return "/icon/sonarr.png"
   } else if (name.toLowerCase().includes("radarr") || link.includes(":7878")) {
     return "/icon/radarr.png"
+  } else if (name.toLowerCase().includes("youtube") || link.includes("youtube.com")) {
+    return "/icon/youtube.png"
+  } else if (name.toLowerCase().includes("github") || link.includes("github.com")) {
+    return "/icon/github.png"
+  } else if (name.toLowerCase().includes("cloudflare") || link.includes("cloudflare.com")) {
+    return "/icon/cloudflare.png"
   }
   return undefined
 }

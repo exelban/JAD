@@ -29,24 +29,5 @@ services:
       - PGID=1000
 ```
 
-## Apps
-
-- [Unifi](https://ui.com)
-- [Proxmox](https://www.proxmox.com)
-- [Synology](https://www.synology.com)
-- [Gitea](https://gitea.com)
-- [Flatnotes](https://github.com/dullage/flatnotes)
-- [PiHole](https://pi-hole.net)
-- [Homebridge](https://homebridge.io)
-- [Uptime Kuma](https://github.com/louislam/uptime-kuma)
-- [Jellyfin](https://jellyfin.org)
-- [Radarr](https://github.com/Radarr/Radarr)
-- [Sonarr](https://github.com/Sonarr/Sonarr)
-- [Transmission](https://transmissionbt.com)
-- [Portainer](https://www.portainer.io)
-- [Plex](https://www.plex.tv)
-
-You can help by adding a new app with PR or request with issues.
-
 ## License
 [MIT License](https://github.com/exelban/JAD/blob/master/LICENSE)
