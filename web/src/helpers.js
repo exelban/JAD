@@ -57,39 +57,39 @@ export const isValidUrl = url => {
 
 export const detectIcon = (name, link) => {
   if (name.toLowerCase().includes("proxmox") || link.includes(":8006")) {
-    return "/icon/proxmox.png"
+    return "./icon/proxmox.png"
   } else if (name.toLowerCase().includes("unifi") || name.toLowerCase().includes("ubiquiti")) {
-    return "/icon/ui.png"
+    return "./icon/ui.png"
   } else if (name.toLowerCase().includes("gitea")) {
-    return "/icon/gitea.png"
+    return "./icon/gitea.png"
   } else if (name.toLowerCase().includes("notes")) {
-    return "/icon/flatnotes.png"
+    return "./icon/flatnotes.png"
   } else if (name.toLowerCase().includes("portainer")) {
-    return "/icon/portainer.png"
+    return "./icon/portainer.png"
   } else if (name.toLowerCase().includes("pihole")) {
-    return "/icon/pihole.png"
+    return "./icon/pihole.png"
   } else if (name.toLowerCase().includes("homebridge")) {
-    return "/icon/homebridge.png"
+    return "./icon/homebridge.png"
   } else if (name.toLowerCase().includes("plex")) {
-    return "/icon/plex.png"
+    return "./icon/plex.png"
   } else if (name.toLowerCase().includes("synology") || link.includes(":5000")) {
-    return "/icon/synology.png"
+    return "./icon/synology.png"
   } else if (name.toLowerCase().includes("kuma")) {
-    return "/icon/kuma.png"
+    return "./icon/kuma.png"
   } else if (name.toLowerCase().includes("jellyfin") || link.includes(":8096")) {
-    return "/icon/jellyfin.png"
+    return "./icon/jellyfin.png"
   } else if (name.toLowerCase().includes("transmission") || link.includes(":9091")) {
-    return "/icon/transmission.png"
+    return "./icon/transmission.png"
   } else if (name.toLowerCase().includes("sonarr") || link.includes(":8989")) {
-    return "/icon/sonarr.png"
+    return "./icon/sonarr.png"
   } else if (name.toLowerCase().includes("radarr") || link.includes(":7878")) {
-    return "/icon/radarr.png"
+    return "./icon/radarr.png"
   } else if (name.toLowerCase().includes("youtube") || link.includes("youtube.com")) {
-    return "/icon/youtube.png"
+    return "./icon/youtube.png"
   } else if (name.toLowerCase().includes("github") || link.includes("github.com")) {
-    return "/icon/github.png"
+    return "./icon/github.png"
   } else if (name.toLowerCase().includes("cloudflare") || link.includes("cloudflare.com")) {
-    return "/icon/cloudflare.png"
+    return "./icon/cloudflare.png"
   }
   return undefined
 }
