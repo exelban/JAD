@@ -90,6 +90,26 @@ export const detectIcon = (name, link) => {
     return "./icon/github.png"
   } else if (name.toLowerCase().includes("cloudflare") || link.includes("cloudflare.com")) {
     return "./icon/cloudflare.png"
+  } else if (name.toLowerCase().includes("scrypted") || link.includes(":10443")) {
+    return "/icon/scrypted.png"
+  } else if (name.toLowerCase().includes("jackett") || link.includes("jackett") || link.includes(":9117")) {
+    return "/icon/jackett.png"
+  } else if (name.toLowerCase().includes("lidarr") || link.includes("lidarr") || link.includes(":8686")) {
+    return "/icon/lidarr.png"
+  } else if (name.toLowerCase().includes("myspeed") || link.includes("myspeed") || link.includes(":5216")) {
+    return "/icon/myspeed.png"
+  } else if (name.toLowerCase().includes("grafana") || link.includes("grafana")) {
+    return "/icon/grafana.png"
+  } else if (name.toLowerCase().includes("influx") || link.includes("influx") || link.includes(":8086")) {
+    return "/icon/influxdb.png"
+  } else if (name.toLowerCase().includes("hass") || name.toLowerCase().includes("home assistant") || link.includes("homeassistant") || link.includes("hass") || link.includes(":8123")) {
+    return "/icon/homeassistant.png"
+  } else if (name.toLowerCase().includes("zigbee2mqtt") || link.includes("zigbee2mqtt")) {
+    return "/icon/zigbee2mqtt.png"
+  } else if (name.toLowerCase().includes("prowlarr") || link.includes("prowlarr")) {
+    return "/icon/prowlarr.png"
+  } else if (name.toLowerCase().includes("jam") || link.includes("jam")) {
+    return "/icon/jam.png"
   }
   return undefined
 }
