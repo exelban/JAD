@@ -20,7 +20,7 @@ import (
 var (
 	//go:embed web/dist
 	htmlFS  embed.FS
-	version = "unknown"
+	version = "debug"
 )
 
 type args struct {
@@ -36,12 +36,12 @@ type app struct {
 type Link struct {
 	ID string `json:"id"`
 
-	Name  string  `json:"name"`
-	URL   string  `json:"url"`
-	Color *string `json:"color,omitempty"`
-	Icon  *string `json:"icon,omitempty"`
-
-	Order int `json:"order"`
+	Name   string  `json:"name"`
+	URL    string  `json:"url"`
+	Color  *string `json:"color,omitempty"`
+	Icon   *string `json:"icon,omitempty"`
+	Preset *string `json:"preset,omitempty"`
+	Group  *string `json:"group,omitempty"`
 }
 
 func main() {

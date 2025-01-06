@@ -5,17 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "deploy": "yarn build && npx wrangler pages deploy ./dist --project-name jad --branch master"
   },
   "dependencies": {
-    "css.gg": "2.1.1",
-    "sass": "1.77.1",
-    "vue": "3.4.27",
+    "js-cookie": "3.0.5",
+    "sass": "1.83.0",
+    "tailwindcss": "3.4.17",
+    "vue": "3.5.13",
     "vuedraggable": "4.1.0",
-    "vuex": "4.1.0"
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "5.0.4",
-    "vite": "5.2.11"
+    "@vitejs/plugin-vue": "5.2.1",
+    "vite": "6.0.5"
   }
 }

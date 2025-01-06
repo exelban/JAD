@@ -5,56 +5,26 @@
     <title>JAD</title>
 
     <meta name="description" content="JAD (just another dashboard)"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width" />
     <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#F6F6F6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#282828" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="JAM">
 
-    <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
 
     <script>
       const data = "{{ . }}"
       if (data[1] !== "{") {
         window.config = JSON.parse(data)
-        window.config.apiHost = ""
-      } else {
-        fetch("http://localhost:8080").then(res => res.text()).then(data => {
-          window.config = JSON.parse(data)
-        }).catch(err => {
-          window.config = {
-            version: "demo",
-            links: [
-              {
-                id: "youtube",
-                name: "YouTube",
-                url: "https://youtube.com",
-                color: "#ffffff"
-              },
-              {
-                id: "ubiquiti",
-                name: "Ubiquiti",
-                url: "https://ui.com",
-                color: "#0061ff"
-              },
-              {
-                id: "github",
-                name: "Github",
-                url: "https://github.com",
-                color: "#ffffff"
-              },
-              {
-                id: "cloudflare",
-                name: "Cloudflare",
-                url: "https://cloudflare.com",
-                color: "#f3f3f3"
-              }
-            ],
-          }
-        })
       }
     </script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" class="relative"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
