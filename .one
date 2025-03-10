@@ -1,5 +1,3 @@
 name: JAD
+context: services
 image: exelban/jad:latest
-build:
-  push: true
-  platforms: linux/amd64

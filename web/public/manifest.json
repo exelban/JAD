@@ -1,7 +1,7 @@
 {
   "name": "JAD",
   "short_name": "JAD",
-  "display": "standalone",
+  "display": "browser",
   "scope": "/",
   "start_url": "/",
   "theme_color": "#F6F6F6",

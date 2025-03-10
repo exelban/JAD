@@ -91,6 +91,7 @@ const onPresetChange = () => {
 }
 const addOrSaveLink = (e) => {
   e.preventDefault()
+  if (!props.value.id) props.value.id = Math.random().toString(36).substring(2, 9)
   status.value = "in_progress"
   store.dispatch("upsert", props.value).then(() => {
     status.value = "ok"

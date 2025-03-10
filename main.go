@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/rand"
 	"embed"
 	"encoding/json"
 	"errors"
@@ -15,6 +16,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 var (
@@ -176,6 +178,12 @@ func (a *app) getLinks() []Link {
 	return list
 }
 func (a *app) saveLinks(links []Link) error {
+	for i := range links {
+		if links[i].ID == "" {
+			links[i].ID = generateShortID()
+		}
+	}
+
 	f, err := os.OpenFile(a.linksPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		return fmt.Errorf("failed to create file: %w", err)
@@ -187,10 +195,18 @@ func (a *app) saveLinks(links []Link) error {
 		return fmt.Errorf("failed to marshal links: %w", err)
 	}
 
-	_, err = f.Write(b)
-	if err != nil {
+	if _, err = f.Write(b); err != nil {
 		return fmt.Errorf("failed to write links: %w", err)
 	}
 
 	return nil
+}
+
+func generateShortID() string {
+	timestamp := time.Now().UnixNano()
+	randomBytes := make([]byte, 4)
+	if _, err := rand.Read(randomBytes); err != nil {
+		panic(err)
+	}
+	return fmt.Sprintf("%x%x", timestamp, randomBytes)
 }

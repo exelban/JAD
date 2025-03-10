@@ -120,6 +120,28 @@ const list = {
     "name": "llama",
     "color": "#FFFFFF",
     "icon": "/presets/llama.png"
+  },
+  "truenas": {
+    "name": "TrueNAS",
+    "icon": "/presets/truenas.png"
+  },
+  "GoogleSearchConsole": {
+    "name": "Google Search Console",
+    "icon": "/presets/googlesearchconsole.png"
+  },
+  "stable-diffusion": {
+    "name": "Stable Diffusion",
+    "icon": "/presets/stablediffusion.png"
+  },
+  "traefik": {
+    "name": "Traefik",
+    "color": "#ffffff",
+    "icon": "/presets/traefik.png"
+  },
+  "nut": {
+    "name": "NUT",
+    "color": "#0067cd",
+    "icon": "/presets/nut.png"
   }
 }
 
