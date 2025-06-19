@@ -142,6 +142,30 @@ const list = {
     "name": "NUT",
     "color": "#0067cd",
     "icon": "/presets/nut.png"
+  },
+  "docmost": {
+    "name": "Docmost",
+    "color": "#000000",
+    "icon": "/presets/docmost.png"
+  },
+  "filebrowser": {
+    "name": "File Browser",
+    "icon": "/presets/filebrowser.png"
+  },
+  "netdetect": {
+    "name": "NetDetect",
+    "color": "#ffffff",
+    "icon": "/presets/netdetect.png"
+  },
+  "paperless": {
+    "name": "Paperless",
+    "color": "#2b8a38",
+    "icon": "/presets/paperless.png"
+  },
+  "nutshell": {
+    "name": "NutShell",
+    "color": "#ffffff",
+    "icon": "/presets/nutshell.png"
   }
 }
 
