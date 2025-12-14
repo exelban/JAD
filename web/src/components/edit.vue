@@ -19,7 +19,7 @@
                 <label class="block text-neutral-700 dark:text-neutral-300 font-medium text-right pr-4" for="name">Name</label>
               </div>
               <div class="w-full sm:w-2/3">
-                <input v-model="value.name" id="name" placeholder="Type link name" type="text" class="bg-neutral-50 appearance-none border border-neutral-300 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white" required>
+                <input v-model="value.name" id="name" autocapitalize="off" placeholder="Type link name" type="text" class="bg-neutral-50 appearance-none border border-neutral-300 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white" required>
               </div>
             </div>
             <div class="col-span-3 flex items-center">
@@ -27,7 +27,7 @@
                 <label class="block text-neutral-700 dark:text-neutral-300 font-medium text-right pr-4" for="url">URL</label>
               </div>
               <div class="w-full sm:w-2/3">
-                <input v-model="value.url" id="url" placeholder="Type link url" type="text" class="bg-neutral-50 appearance-none border border-neutral-300 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white" required>
+                <input v-model="value.url" id="url" autocapitalize="off" placeholder="Type link url" type="text" class="bg-neutral-50 appearance-none border border-neutral-300 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white" required>
               </div>
             </div>
             <div class="col-span-3 flex items-center">
@@ -50,6 +50,15 @@
                   <input v-model="value.color" id="color" type="text" placeholder="HEX color code" class="w-full pl-2.5 py-2 pl-4 bg-transparent rounded-l-lg leading-tight focus:outline-none focus:bg-white">
                   <input v-model="value.color" type="color" class="pr-2.5 w-[65px] h-[32px] bg-transparent">
                 </div>
+              </div>
+            </div>
+            <div class="col-span-3 flex items-center" v-if="store.state.version !== 'demo'">
+              <div class="w-[80px] sm:w-1/3">
+              </div>
+              <div class="w-full sm:w-2/3">
+                <button type="button" @click="loadIcon" :disabled="!isUrlValid" :class="isUrlValid ? 'bg-blue-500 hover:bg-blue-600' : 'bg-neutral-300 hover:bg-neutral-300'" class="w-full text-white inline-flex items-center justify-center focus:outline-none font-medium rounded-lg text-xs px-5 py-0.5 text-center">
+                  Load Site Favicon
+                </button>
               </div>
             </div>
           </div>
@@ -80,14 +89,25 @@
 import CLink from "./link.vue"
 import { useStore } from "vuex"
 import presets from "../presets.js"
-import {ref} from "vue"
+import {ref, watch, computed} from "vue"
 
 const store = useStore()
 const props = defineProps(["value"])
 const status = ref(undefined)
 
+const isUrlValid = computed(() => {
+  try {
+    const u = new URL(props.value?.url || "")
+    return u.protocol === "http:" || u.protocol === "https:"
+  } catch {
+    return false
+  }
+})
+
 const onPresetChange = () => {
-  if (props.value.preset && presets[props.value.preset].color) delete(props.value.color)
+  if (props.value.preset && presets[props.value.preset].color) {
+    props.value.color = presets[props.value.preset].color
+  }
 }
 const addOrSaveLink = (e) => {
   e.preventDefault()
@@ -101,4 +121,12 @@ const addOrSaveLink = (e) => {
     setTimeout(() => store.dispatch("closeEditLink"), 3000)
   })
 }
+const loadIcon = () => {
+  store.dispatch("loadFaviconURL", props.value.url).then((icon) => {
+    props.value.icon = icon
+  }).catch(() => {
+    props.value.icon = null
+  })
+}
+
 </script>

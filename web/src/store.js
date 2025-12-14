@@ -189,6 +189,10 @@ export default new Vuex.Store({
     closeDelete({ commit }) {
       commit("setDeleteWindow", false)
       commit("setDeleteID", null)
+    },
+
+    loadFaviconURL(_, url) {
+      return fetch("/api/favicon?url=" + encodeURIComponent(url)).then(res => res.text())
     }
   }
 })

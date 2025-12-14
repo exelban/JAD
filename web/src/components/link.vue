@@ -73,7 +73,7 @@ const color = computed(() => {
   return "#ffffff"
 })
 const icon = computed(() => {
-  if (props.value.icon) return props.value.color
+  if (props.value.icon) return props.value.icon
   if (!props.value.preset) return null
   if (presets[props.value.preset]) return presets[props.value.preset].icon
   return null

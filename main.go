@@ -7,16 +7,20 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
-	"github.com/pkgz/rest"
-	"github.com/pkgz/service"
 	"html/template"
 	"io/fs"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
 	"time"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	"github.com/pkgz/rest"
+	"github.com/pkgz/service"
 )
 
 var (
@@ -56,10 +60,6 @@ func main() {
 		os.Exit(1)
 	}
 	defer cancel()
-
-	if args.Debug {
-		fmt.Printf("%+v\n", args)
-	}
 
 	app := &app{
 		srv:       rest.NewServer(args.Port),
@@ -125,6 +125,23 @@ func (a *app) router() chi.Router {
 				return
 			}
 			rest.OkResponse(w)
+		})
+
+		r.Get("/favicon", func(w http.ResponseWriter, r *http.Request) {
+			uri := r.URL.Query().Get("url")
+			if uri == "" {
+				rest.ErrorResponse(w, r, http.StatusBadRequest, nil, "missing url parameter")
+				return
+			}
+
+			faviconURL, err := extractFaviconURL(uri)
+			if err != nil {
+				log.Printf("[ERROR] failed to extract favicon: %v", err)
+				rest.ErrorResponse(w, r, http.StatusInternalServerError, nil, "failed to extract favicon")
+				return
+			}
+
+			rest.TextResponse(w, faviconURL)
 		})
 	})
 
@@ -209,4 +226,56 @@ func generateShortID() string {
 		panic(err)
 	}
 	return fmt.Sprintf("%x%x", timestamp, randomBytes)
+}
+
+func extractFaviconURL(siteURL string) (string, error) {
+	if !strings.HasPrefix(siteURL, "http://") && !strings.HasPrefix(siteURL, "https://") {
+		siteURL = "https://" + siteURL
+	}
+
+	resp, err := http.Get(siteURL)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	candidates := []string{}
+	if favicon, ok := doc.Find("link[rel='icon'], link[rel='shortcut icon'], link[rel='apple-touch-icon']").Attr("href"); ok && favicon != "" {
+		candidates = append(candidates, favicon)
+	}
+	candidates = append(candidates, "/favicon.ico", "/apple-touch-icon.png", "/favicon.png")
+
+	for _, raw := range candidates {
+		full := raw
+		if !strings.HasPrefix(raw, "http://") && !strings.HasPrefix(raw, "https://") {
+			base, err := url.Parse(siteURL)
+			if err != nil {
+				continue
+			}
+			rel, err := url.Parse(raw)
+			if err != nil {
+				continue
+			}
+			full = base.ResolveReference(rel).String()
+		}
+		head, err := http.Head(full)
+		if err == nil && head.StatusCode == http.StatusOK {
+			head.Body.Close()
+			return full, nil
+		}
+		if head != nil && head.Body != nil {
+			head.Body.Close()
+		}
+	}
+
+	base, err := url.Parse(siteURL)
+	if err != nil {
+		return "", err
+	}
+	return base.ResolveReference(&url.URL{Path: "/favicon.ico"}).String(), nil
 }

@@ -166,6 +166,36 @@ const list = {
     "name": "NutShell",
     "color": "#ffffff",
     "icon": "/presets/nutshell.png"
+  },
+  "emqx": {
+    "name": "EMQX",
+    "color": "#ffffff",
+    "icon": "/presets/emqx.png"
+  },
+  "slzb": {
+    "name": "SLZB",
+    "color": "#212529",
+    "icon": "/presets/slzb.png"
+  },
+  "bitwarden": {
+    "name": "Bitwarden",
+    "color": "#175DDC",
+    "icon": "/presets/bitwarden.png"
+  },
+  "drawio": {
+    "name": "Draw.io",
+    "color": "#ffffff",
+    "icon": "/presets/drawio.png"
+  },
+  "frigate": {
+    "name": "Frigate",
+    "color": "#ffffff",
+    "icon": "/presets/frigate.png"
+  },
+  "netbootxyz": {
+    "name": "Netboot.xyz",
+    "color": "#ffffff",
+    "icon": "/presets/netbootxyz.png"
   }
 }
 
